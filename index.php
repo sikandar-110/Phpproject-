@@ -1,5 +1,14 @@
+<?php
+// Images folder ka path
+$imageFolder = 'images/';
+
+// Agar images folder na ho to ban jaye
+if (!file_exists($imageFolder)) {
+    mkdir($imageFolder, 0777, true);
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,35 +74,33 @@
 </head>
 <body>
     <div class="container">
-        <h1>Image Gallery</h1>
+        <h1>Meri Image Gallery</h1>
         
         <div class="gallery">
             <?php
-            $imageDir = 'images/';
-            
-            if(is_dir($imageDir)) {
-                $files = scandir($imageDir);
+            if (is_dir($imageFolder)) {
+                $files = scandir($imageFolder);
                 $imageFound = false;
                 
-                foreach($files as $file) {
-                    if($file != '.' && $file != '..') {
+                foreach ($files as $file) {
+                    if ($file != '.' && $file != '..') {
                         $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
                         
-                        if(in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                        if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
                             $imageFound = true;
                             echo '<div class="gallery-item">';
-                            echo '<img src="'.$imageDir.$file.'" alt="'.$file.'">';
+                            echo '<img src="'.$imageFolder.$file.'" alt="'.$file.'">';
                             echo '<div class="filename">'.$file.'</div>';
                             echo '</div>';
                         }
                     }
                 }
                 
-                if(!$imageFound) {
-                    echo '<div class="no-images">No images found in images folder</div>';
+                if (!$imageFound) {
+                    echo '<div class="no-images">Koi images nahi mili</div>';
                 }
             } else {
-                echo '<div class="no-images">Images folder not found</div>';
+                echo '<div class="no-images">Images folder nahi mila</div>';
             }
             ?>
         </div>
